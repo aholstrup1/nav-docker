@@ -4,7 +4,7 @@ Set-StrictMode -Version 2.0
 
 $isolation = "hyperv"
 $filesOnly = $false
-$only24 = $false
+$only24 = $false 
 $image = "mygeneric"
 
 # Get osVersion to use for the right base image
