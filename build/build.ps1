@@ -1,6 +1,6 @@
 <#
     .SYNOPSIS
-    Build a Docker image for Business Central.
+    Build a Docker image for Business Central. 
 
     .DESCRIPTION
     This script builds a Docker image for Business Central using the specified parameters.
