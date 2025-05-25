@@ -97,16 +97,19 @@ jobs:
           Tag: ${{ matrix.tag }}
           GenericTag: ${{ needs.AnalyzeImages.outputs.genericTag }}
         run: |
-          $osversion = $env:Tag.split('|')[0].split('-')[0]
-          $filesonly = ($env:Tag -like '*-filesonly|*')
-          $only24 = ($env:Tag -like '*-24|*' -or $env:Tag -like '*-24-filesonly|*')
-          $baseImage = $env:Tag.split('|')[1]
-          $ltscTag = $env:Tag.split('|')[2]
+          try {
+            $filesonly = ($env:Tag -like '*-filesonly|*')
+            $only24 = ($env:Tag -like '*-24|*' -or $env:Tag -like '*-24-filesonly|*')
+            $baseImage = $env:Tag.split('|')[1]
+            $ltscTag = $env:Tag.split('|')[2]
 
-          . ${{ github.workspace }}/build/build.ps1 `
-              -OSVersion $osversion `
-              -BaseImage $baseImage `
-              -LtscTag $ltscTag `
-              -FilesOnly $filesonly `
-              -Only24 $only24 `
-              -GenericTag $env:GenericTag
+            . ${{ github.workspace }}/build/build.ps1 `
+                -BaseImage $baseImage `
+                -LtscTag $ltscTag `
+                -FilesOnly $filesonly `
+                -Only24 $only24 `
+                -GenericTag $env:GenericTag
+          } catch {
+            Write-Host "::Error::Error building image. Error was $($_.Exception.Message)"
+            $host.SetShouldExit(1)
+          }

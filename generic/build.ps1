@@ -4,13 +4,13 @@ Set-StrictMode -Version 2.0
 
 $isolation = "hyperv"
 $filesOnly = $false
-$only24 = $false
+$only24 = $false 
 $image = "mygeneric"
 
 # Get osVersion to use for the right base image
 $genericImage = Get-BestGenericImageName
 $osVersion = ($genericImage.Split(':')[1]).Split('-')[0]  # should return ltsc2016, ltsc2019 or ltsc2022
-if ($osVersion -notlike 'ltsc20??') {
+if ($osVersion -notlike 'ltsc20??') { 
     throw "Unexpected osversion"
 }
 
