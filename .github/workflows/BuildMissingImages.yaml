@@ -128,7 +128,7 @@ jobs:
               -Only24 $only24 `
               -GenericTag $env:GenericTag `
               -PushToDev `
-              -PushToProd:$env:PushToProd
+              -PushToProd:$pushToProd
 
   MarkOldImagesStale:
     runs-on: [ Windows-Latest ]
