@@ -1,10 +1,10 @@
-$sql2022url = 'https://aka.ms/bcdocker-Sql2022Url'
+$sql2025url = 'https://download.microsoft.com/download/7ab8f535-7eb8-4b16-82eb-eca0fa2d38f3/SQL2025-SSEI-Expr.exe'
 
 # https://learn.microsoft.com/en-us/troubleshoot/sql/releases/download-and-install-latest-updates#latest-updates-available-for-currently-supported-versions-of-sql-server
 # Click the link under latest cumulative update including the latest GDR update (NOT the link under latest GDR)
 # In the KB article, look for "How to obtain and install the update", click Method 3: Microsoft Download Center -> Download Package now -> Download and right click "click here to download manually" -> Copy link address
 # The file is around 900Mb (GDR update alone is smaller)
-$sql2022LatestCuUrl = 'https://aka.ms/bcdocker-Sql2022LatestCuUrl'
+$sql2025LatestCuUrl = 'https://download.microsoft.com/download/69e0b8fc-1c50-41bd-a576-b9c66b2f302a/SQLServer2025-KB5077896-x64.exe'
 
 # https://dotnet.microsoft.com/en-us/download/dotnet/6.0 - grab the direct link behind ASP.NET Core Runtime Windows -> Hosting Bundle
 $dotNet6url = 'https://aka.ms/bcdocker-DotNet6Url'

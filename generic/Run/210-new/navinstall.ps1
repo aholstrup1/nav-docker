@@ -76,6 +76,10 @@ if (!$skipDb) {
     Set-itemproperty -path 'HKLM:\software\microsoft\microsoft sql server\mssql16.SQLEXPRESS\mssqlserver' -name DefaultData -value $databaseFolder -ErrorAction SilentlyContinue
     Set-itemproperty -path 'HKLM:\software\microsoft\microsoft sql server\mssql16.SQLEXPRESS\mssqlserver' -name DefaultLog -value $databaseFolder -ErrorAction SilentlyContinue
 
+    # SQL Express 2025
+    Set-itemproperty -path 'HKLM:\software\microsoft\microsoft sql server\mssql17.SQLEXPRESS\mssqlserver' -name DefaultData -value $databaseFolder -ErrorAction SilentlyContinue
+    Set-itemproperty -path 'HKLM:\software\microsoft\microsoft sql server\mssql17.SQLEXPRESS\mssqlserver' -name DefaultLog -value $databaseFolder -ErrorAction SilentlyContinue
+
     # start the SQL Server
     Write-Host "Starting Local SQL Server"
     Start-Service -Name $SqlBrowserServiceName
