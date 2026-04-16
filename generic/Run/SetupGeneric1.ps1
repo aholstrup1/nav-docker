@@ -46,7 +46,10 @@ if (-not $filesonly) {
     $tempPath = $sqlInstaller.DirectoryName
 
     Write-Host 'Unpacking SQL Server 2025 Express'
-    Start-Process -FilePath $sqlInstaller.FullName -NoNewWindow -Wait -PassThru -ArgumentList "/Quiet", "/Action=Download" ,"/MediaPath=$tempPath", "/MediaType=Express"
+    $process = Start-Process -FilePath $sqlInstaller.FullName -NoNewWindow -Wait -PassThru -ArgumentList "/Quiet", "/Action=Download", "/MediaPath=$tempPath"
+    Write-Host "SSEI download exit code: $($process.ExitCode)"
+    Write-Host "Files in temp after SSEI download:"
+    Get-ChildItem -Path 'temp' -Filter '*.exe' | ForEach-Object { Write-Host "  $($_.Name) ($([math]::Round($_.Length/1MB))MB)" }
 
     Write-Host 'Installing SQL Server 2025 Express'
     $configFileLocation = 'c:\run\SQLConf.ini'
