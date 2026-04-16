@@ -46,11 +46,14 @@ if (-not $filesonly) {
     $tempPath = $sqlInstaller.DirectoryName
 
     Write-Host 'Unpacking SQL Server 2025 Express'
-    Start-Process -FilePath $sqlInstaller.FullName -NoNewWindow -Wait -PassThru -ArgumentList "/Quiet", "/Action=Download" ,"/MediaPath=$tempPath", "/MediaType=Advanced"
+    Start-Process -FilePath $sqlInstaller.FullName -NoNewWindow -Wait -PassThru -ArgumentList "/Quiet", "/Action=Download" ,"/MediaPath=$tempPath", "/MediaType=Express"
 
     Write-Host 'Installing SQL Server 2025 Express'
     $configFileLocation = 'c:\run\SQLConf.ini'
-    $process = Start-Process -FilePath 'temp\SQLEXPRADV_x64_ENU.exe' -NoNewWindow -Wait -PassThru -ArgumentList "/Q", "/Action=Install", "/ConfigurationFile=$configFileLocation", "/IAcceptSQLServerLicenseTerms", "/Quiet"
+    $sqlSetupExe = Get-ChildItem -Path 'temp' -Filter 'SQLEXPR*.exe' | Where-Object { $_.Name -ne 'SQL2025-SSEI-Expr.exe' } | Select-Object -First 1
+    if (-not $sqlSetupExe) { throw "SQL Server 2025 Express setup executable not found after download" }
+    Write-Host "Found SQL Server setup: $($sqlSetupExe.Name)"
+    $process = Start-Process -FilePath $sqlSetupExe.FullName -NoNewWindow -Wait -PassThru -ArgumentList "/Q", "/Action=Install", "/ConfigurationFile=$configFileLocation", "/IAcceptSQLServerLicenseTerms", "/Quiet"
     if (($null -ne $process.ExitCode) -and ($process.ExitCode -ne 0)) { Write-Host ('EXIT CODE '+$process.ExitCode) } else { Write-Host 'Success' }
 
     # Installing the latest Cumulative Update does not work with the SQL Server 2025 Express installer
